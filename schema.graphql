@@ -1,0 +1,26 @@
+type Holder @entity {
+	id: ID!
+	node: String!
+	pool: ID!
+}
+
+type Pool @entity {
+	id: ID!
+	holder: Bytes!
+	open: BigInt!
+	close: BigInt!
+	lastUpdated: BigInt!
+	realised: BigInt!
+	claimed: BigInt!
+	status: String!
+	available: BigInt!
+	accumulated: BigInt!
+}
+
+type PoolSnapshot @entity {
+	id: ID!
+	total: BigInt!
+	block: BigInt!
+	rewardPerBlock: BigInt!
+	pools: [Pool!]!
+}

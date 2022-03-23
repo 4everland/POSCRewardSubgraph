@@ -1,0 +1,36 @@
+specVersion: 0.0.4
+description: POSC Rewards for {{network}}
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: POSCRewards
+    network: {{network}}
+    source:
+      address: '{{contractAddress}}'
+      abi: POSCRewards
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - POSCRewards
+      abis:
+        - name: POSCRewards
+          file: ./abis/POSCRewards.json
+      blockHandlers:
+        - handler: handleBlock
+      eventHandlers:
+        - event: Claim(indexed uint256,indexed address,uint256)
+          handler: handleClaim
+        - event: Close(indexed uint256)
+          handler: handleClose
+        - event: Open(indexed uint256)
+          handler: handleOpen
+        - event: SetNode(indexed uint256,indexed address,string)
+          handler: handleSetNode
+        - event: SetRewardPerBlock(uint256)
+          handler: handleSetRewardPerBlock
+      file: ./src/POSCRewards.ts
+  
