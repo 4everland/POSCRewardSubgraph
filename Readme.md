@@ -1,1 +1,1 @@
-### POSC Rewards Subgraph
+### POSC Subgraph

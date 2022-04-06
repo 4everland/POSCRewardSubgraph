@@ -1,24 +1,24 @@
 specVersion: 0.0.4
-description: POSC Rewards for {{network}}
+description: POSC for {{network}}
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: POSCRewards
+    name: POSC
     network: {{network}}
     source:
       address: '{{contractAddress}}'
-      abi: POSCRewards
+      abi: POSC
       startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - POSCRewards
+        - POSC
       abis:
-        - name: POSCRewards
-          file: ./abis/POSCRewards.json
+        - name: POSC
+          file: ./abis/POSC.json
       blockHandlers:
         - handler: handleBlock
       eventHandlers:
@@ -32,5 +32,5 @@ dataSources:
           handler: handleSetNode
         - event: SetRewardPerBlock(uint256)
           handler: handleSetRewardPerBlock
-      file: ./src/POSCRewards.ts
+      file: ./src/POSC.ts
   

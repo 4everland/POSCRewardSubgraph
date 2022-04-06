@@ -1,3 +1,3 @@
 import { Address } from '@graphprotocol/graph-ts'
-import { POSCRewards } from './types/POSCRewards/POSCRewards'
-export const contract = POSCRewards.bind(Address.fromString('0x8017c0a5ad2aFD8C7baD1C933fbB9467B44af9b4'))
+import { POSC } from './types/POSC/POSC'
+export const contract = POSC.bind(Address.fromString('0x6B39778aAde00b3a99e463934b614Aa41dFAF09b'))

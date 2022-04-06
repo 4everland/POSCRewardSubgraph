@@ -1,5 +1,5 @@
 import { BigInt, ethereum } from '@graphprotocol/graph-ts'
-import { Open, Close, Claim, SetNode, SetRewardPerBlock } from './types/POSCRewards/POSCRewards'
+import { Open, Close, Claim, SetNode, SetRewardPerBlock } from './types/POSC/POSC'
 import { Holder, Pool, PoolSnapshot } from './types/schema'
 import { contract } from './utils'
 
@@ -7,7 +7,10 @@ export function handleOpen(event: Open): void {
 	const pid = event.params.pid
 	upsetPool(pid)
 	const holder = contract.holder(pid)
-	const holderEntity = new Holder(holder.toHex())
+	const id = holder.toHex()
+	let holderEntity = new Holder(id)
+	holderEntity.created = event.block.timestamp
+	holderEntity.updated = event.block.timestamp
 	holderEntity.pool = pid.toString()
 	holderEntity.node = contract.holders(holder).value1
 	holderEntity.save()
@@ -24,12 +27,12 @@ export function handleClaim(event: Claim): void {
 }
 
 export function handleSetNode(event: SetNode): void {
-	const holderEntity = Holder.load(event.params.holder.toHex())
-	if (holderEntity) {
-		holderEntity.pool = event.params.pid.toString()
-		holderEntity.node = event.params.node
-		holderEntity.save()
-	}
+	const holder = contract.holder(event.params.pid)
+	const id = holder.toHex()
+	let holderEntity = Holder.load(id)!
+	holderEntity.updated = event.block.timestamp
+	holderEntity.node = contract.holders(holder).value1
+	holderEntity.save()
 }
 
 export function handleSetRewardPerBlock(event: SetRewardPerBlock): void {

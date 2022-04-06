@@ -1,5 +1,5 @@
 {
-	"name": "POSCRewardsSubgraph",
+	"name": "POSCSubgraph",
 	"license": "UNLICENSED",
 	"scripts": {
 		"codegen": "graph codegen --output-dir src/types/",

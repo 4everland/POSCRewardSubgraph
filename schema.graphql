@@ -1,7 +1,9 @@
 type Holder @entity {
 	id: ID!
 	node: String!
-	pool: ID!
+	created: BigInt!
+	updated: BigInt!
+	pool: Pool!
 }
 
 type Pool @entity {
